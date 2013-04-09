@@ -13,7 +13,7 @@ $enclosure = '"';
 $output = "csv2sql.sql";
 
 // Where data will be inserted.
-$table = 'osdial.osdial_list';
+$table = 'table';
 
 $lines = file($file);
 
