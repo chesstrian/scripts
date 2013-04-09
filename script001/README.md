@@ -18,6 +18,6 @@ php main.php file.csv
 
 ```sql
 -- Run queries to insert.
-INSERT INTO osdial.osdial_list (`field1`,`field2`) VALUES ('row 11','row 12');
-INSERT INTO osdial.osdial_list (`field1`,`field2`) VALUES ('row 21','row 22');
+INSERT INTO table (`field1`,`field2`) VALUES ('row 11','row 12');
+INSERT INTO table (`field1`,`field2`) VALUES ('row 21','row 22');
 ```
