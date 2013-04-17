@@ -12,7 +12,7 @@ CSV Example:
 ```
 
 ```sh
-php main.php file.csv
+php main.php file.csv table
 ```
 **Output:**
 

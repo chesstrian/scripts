@@ -1,6 +1,6 @@
 <?php
-if ($argc != 2) {
-  echo "Usage: php " . $argv[0] . " file.csv\n";
+if ($argc != 3) {
+  echo "Usage: php " . $argv[0] . " file.csv table\n";
   exit(-1);
 }
 
@@ -13,7 +13,7 @@ $enclosure = '"';
 $output = "csv2sql.sql";
 
 // Where data will be inserted.
-$table = 'table';
+$table = $argv[2];
 
 $lines = file($file);
 
