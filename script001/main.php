@@ -1,6 +1,6 @@
 <?php
-if ($argc != 3) {
-  echo "Usage: php " . $argv[0] . " file.csv table\n";
+if ($argc != 4) {
+  echo "Usage: php " . $argv[0] . " file.csv table file.sql\n";
   exit(-1);
 }
 
@@ -9,11 +9,11 @@ $file = $argv[1];
 $delimiter = ',';
 $enclosure = '"';
 
-// To write sql.
-$output = "csv2sql.sql";
-
 // Where data will be inserted.
 $table = $argv[2];
+
+// To write sql.
+$output = $argv[3];
 
 $lines = file($file);
 
@@ -28,7 +28,7 @@ foreach ($lines as $num => $csv) {
       if ($index > 0) {
         $aux_sql .= ",";
       }
-      $aux_sql .= "`$value`";
+      $aux_sql .= "`" . addslashes(trim($value)) . "`";
     }
     $aux_sql .= ") VALUES (";
   } else {
@@ -37,7 +37,7 @@ foreach ($lines as $num => $csv) {
       if ($index > 0) {
         $end_sql .= ",";
       }
-      $data = trim($value);
+      $data = addslashes(trim($value));
       $end_sql .= "'" . $data . "'";
     }
 
