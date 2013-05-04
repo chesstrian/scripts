@@ -2,6 +2,14 @@
 
 basetime=$(date +%s%N)
 
+# Banderas para los parámetros
+flag_s=0
+flag_u=0
+flag_t=0
+flag_x=0
+
+# Función para obtener información del usuario
+## Recibe usuario y bandera_s
 function user_info {
   if [[ -z $2 ]]; then
     exit 1
@@ -23,14 +31,7 @@ function user_info {
   fi
 }
 
-flag_s=0
-flag_u=0
-flag_t=0
-flag_x=0
-
-setrun=1
-waittime=00:00
-
+# Se obtienen los parámetros y se setean las banderas
 while getopts "sxu:t:" OPTION
 do
   case $OPTION in
@@ -43,20 +44,12 @@ do
   esac
 done
 
-# First Time
-if [[ $flag_u -eq 1 ]]; then
-  user_info $user $flag_s
-else
-  for users in `ls /home/`; do
-    user_info $users $flag_s
-  done
-fi
-
-if [[ flag_x -eq 1 ]]; then
-  echo "Time duration: $(echo "scale=3;($(date +%s%N) - ${basetime})/(1*10^09)" | bc)  millisecs."
-fi
+# Para la opción -t
+setrun=1
+waittime=00:00
 
 while [[ true ]]; do
+  # Se setea la próxima ejecución.
   if [[ $setrun -eq 1 ]]; then
     hours=${waittime:0:2}
     minutes=${waittime:3}
@@ -64,6 +57,7 @@ while [[ true ]]; do
     setrun=0
   fi
 
+  # Se actualiza la fecha actual para comparar con la fecha de la próxima ejecución, si coinciden se procede.
   now=$(date)
   if [[ $nextrun = $now ]]; then
     if [[ $flag_u -eq 1 ]]; then
@@ -75,7 +69,7 @@ while [[ true ]]; do
     fi
 
     if [[ flag_x -eq 1 ]]; then
-      echo "Time duration: $(echo "scale=3;($(date +%s%N) - ${basetime})/(1*10^09)" | bc)  millisecs."
+      echo "Duración: $(echo "scale=3;($(date +%s%N) - ${basetime})/(1*10^09)" | bc)  millisegundos."
     fi
 
     setrun=1
