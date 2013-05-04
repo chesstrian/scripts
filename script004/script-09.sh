@@ -31,6 +31,11 @@ function user_info {
   fi
 }
 
+# Para la opción -t
+setrun=1
+waittime=00:00
+nextrun=$(date)
+
 # Se obtienen los parámetros y se setean las banderas
 while getopts "sxu:t:" OPTION
 do
@@ -44,19 +49,7 @@ do
   esac
 done
 
-# Para la opción -t
-setrun=1
-waittime=00:00
-
 while [[ true ]]; do
-  # Se setea la próxima ejecución.
-  if [[ $setrun -eq 1 ]]; then
-    hours=${waittime:0:2}
-    minutes=${waittime:3}
-    nextrun=$(date --date='+'$hours' hours '$minutes' minutes')
-    setrun=0
-  fi
-
   # Se actualiza la fecha actual para comparar con la fecha de la próxima ejecución, si coinciden se procede.
   now=$(date)
   if [[ $nextrun = $now ]]; then
@@ -73,6 +66,14 @@ while [[ true ]]; do
     fi
 
     setrun=1
+  fi
+
+  # Se setea la próxima ejecución.
+  if [[ $setrun -eq 1 ]]; then
+    hours=${waittime:0:2}
+    minutes=${waittime:3}
+    nextrun=$(date --date='+'$hours' hours '$minutes' minutes')
+    setrun=0
   fi
 
   if [[ $flag_t -eq 0 ]]; then
