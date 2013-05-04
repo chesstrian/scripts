@@ -52,6 +52,10 @@ else
   done
 fi
 
+if [[ flag_x -eq 1 ]]; then
+  echo "Time duration: $(echo "scale=3;($(date +%s%N) - ${basetime})/(1*10^09)" | bc)  millisecs."
+fi
+
 while [[ true ]]; do
   if [[ $setrun -eq 1 ]]; then
     hours=${waittime:0:2}
