@@ -12,9 +12,9 @@ CSV Example:
 ```
 
 ```sh
-php main.php file.csv table file.csv
+php main.php file.csv table file.sql
 ```
-**Output:** _On file.csv_
+**Output:** _On file.sql_
 
 ```sql
 -- Run queries to insert.
